@@ -53,18 +53,21 @@ import Grip from '@/components/Grip.vue'
 import Chord from '@/models/chord'
 import chords from '@/assets/chords/'
 
+const { G_OPEN_FULL, C_OPEN, F, D_SEMI_BARRE } = chords
+
 const song = {
   timeSignature: {
     beats: 4,
     denominator: 4,
   },
   measures: [
-    [chords.G_OPEN_FULL, chords.G_OPEN_FULL, chords.G_OPEN_FULL, chords.G_OPEN_FULL],
-    [chords.C_OPEN, chords.C_OPEN, chords.C_OPEN, chords.C_OPEN],
-    [chords.G_OPEN_FULL, chords.G_OPEN_FULL, chords.G_OPEN_FULL, chords.G_OPEN_FULL],
-    [chords.C_OPEN, chords.C_OPEN, chords.C_OPEN, chords.C_OPEN],
-    [chords.G_OPEN_FULL, chords.C_OPEN, chords.G_OPEN_FULL, chords.C_OPEN],
-    [chords.C_OPEN, chords.C_OPEN, chords.C_OPEN, chords.C_OPEN],
+    [G_OPEN_FULL, G_OPEN_FULL, G_OPEN_FULL, G_OPEN_FULL],
+    [C_OPEN, C_OPEN, C_OPEN, C_OPEN],
+    [G_OPEN_FULL, G_OPEN_FULL, G_OPEN_FULL, G_OPEN_FULL],
+    [C_OPEN, C_OPEN, C_OPEN, C_OPEN],
+    [G_OPEN_FULL, C_OPEN, G_OPEN_FULL, C_OPEN],
+    [C_OPEN, C_OPEN, C_OPEN, C_OPEN],
+    [F, D_SEMI_BARRE]
   ]
 }
 

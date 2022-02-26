@@ -8,8 +8,8 @@ export default class Chord {
   public strings: String[]
   public grip: Grip
 
-  constructor(private label: string, private fingerPositions: FingerPositions, stringsToSkip?: String[]) {
-    this.strings = this.availableStrings.filter(s => !stringsToSkip?.includes(s))
+  constructor(private label: string, private fingerPositions: FingerPositions, stringsToSkip: String[]) {
+    this.strings = this.availableStrings.filter(s => !stringsToSkip.includes(s))
 
     this.generateGrip()
   }
