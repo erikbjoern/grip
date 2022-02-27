@@ -13,3 +13,8 @@
 .fade-enter-to {
   opacity: 1;
 }
+
+html, body {
+  overscroll-behavior-x: none;
+  overflow-x: hidden;
+}

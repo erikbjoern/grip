@@ -4,7 +4,7 @@
     :class="expanded ? 'rounded-lg px-10 py-6' : 'rounded-full min-w-[1.5rem] w-[fit-content] h-6'"
   >
     <p
-      class="px-[0.3rem] mx-auto my-auto font-semibold leading-none -translate-x-px -translate-y-px whitespace-nowrap"
+      class="px-[0.3rem] mx-auto my-auto font-semibold leading-none whitespace-nowrap"
       :class="expanded ? 'text-[2rem]' : ''"
     >{{ label }}</p>
 
@@ -65,6 +65,7 @@
 
 <script setup lang="ts">
 import { String, BarreElementData } from '@/types'
+import { onMounted } from 'vue'
 import Chord from '@/models/chord'
 
 const props = defineProps<{
