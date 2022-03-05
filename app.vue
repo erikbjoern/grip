@@ -139,6 +139,12 @@ function fillupCurrentChords(direction: 'previous' | 'next') {
   let nextChord
 
   while (!nextChord) {
+    if (nextBeat.measure * nextBeat.beat <= 0 ||
+      nextBeat.measure * nextBeat.beat >
+      song.measures.length * song.timeSignature.beats) {
+      break
+    }
+
     nextChord = getChord(nextBeat)
 
     if (!nextChord && nextBeat.measure * nextBeat.beat >= song.measures.length * song.timeSignature.beats) {
