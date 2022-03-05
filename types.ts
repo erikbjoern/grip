@@ -1,3 +1,5 @@
+import ChordClass from '@/models/chord'
+
 export type Fret = number
 export type String = 1 | 2 | 3 | 4 | 5 | 6
 export type Finger = 1 | 2 | 3 | 4 | 5
@@ -20,4 +22,14 @@ export type BarreElementData = {
   height: string,
   top: string,
   left: string,
+}
+
+type TimeSignature = {
+  beats: number,
+  denominator: number
+}
+
+export type Song = {
+  timeSignature: TimeSignature,
+  measures: ChordClass[][]
 }

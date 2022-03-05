@@ -23,7 +23,7 @@
             @click="expandChord({ measure, beat })"
             :chord="getChord({ measure, beat })"
             :expanded="false"
-            class="cursor-pointer"
+            class="-translate-x-px cursor-pointer"
           />
           <div class="flex items-center flex-1 w-full h-8 pt-2">
             <div
@@ -48,34 +48,20 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
+import { useRoute } from './.nuxt/imports'
 import Grip from '@/components/Grip.vue'
 import SwipeHorizontal from '@/components/SwipeHorizontal.vue'
 import Chord from '@/models/chord'
-import chords from '@/assets/chords/'
+import test from "@/assets/songs/test"
+import one from "@/assets/songs/one"
 
 const { G_OPEN_FULL, C_OPEN, F, D_SEMI_BARRE, A_OPEN } = chords
 
-const song = {
-  timeSignature: {
-    beats: 4,
-    denominator: 4,
-  },
-  measures: [
-    [G_OPEN_FULL, G_OPEN_FULL, G_OPEN_FULL, G_OPEN_FULL],
-    [C_OPEN, C_OPEN, C_OPEN, C_OPEN],
-    [G_OPEN_FULL, G_OPEN_FULL, G_OPEN_FULL, G_OPEN_FULL],
-    [C_OPEN, C_OPEN, C_OPEN, C_OPEN],
-    [G_OPEN_FULL, C_OPEN, G_OPEN_FULL, C_OPEN],
-    [C_OPEN, C_OPEN, C_OPEN, C_OPEN],
-    [F, D_SEMI_BARRE],
-    [G_OPEN_FULL, G_OPEN_FULL, G_OPEN_FULL, G_OPEN_FULL],
-    [C_OPEN, C_OPEN, C_OPEN, C_OPEN],
-    [G_OPEN_FULL, G_OPEN_FULL, G_OPEN_FULL, G_OPEN_FULL],
-    [C_OPEN, C_OPEN, C_OPEN, C_OPEN],
-    [G_OPEN_FULL, C_OPEN, G_OPEN_FULL, C_OPEN],
-    [C_OPEN, C_OPEN, A_OPEN, C_OPEN],
-    [F, D_SEMI_BARRE]
-  ]
+let song = test
+const route = useRoute()
+
+if (route.path == '/1') {
+  song = one
 }
 
 const targetedChordId = ref('')

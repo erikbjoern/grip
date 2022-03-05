@@ -22,8 +22,8 @@
 </template>
 
 <script lang="ts" setup>
-import Chord from '~~/models/chord';
-import Grip from '~~/components/Grip.vue';
+import Chord from '@/models/chord';
+import Grip from '@/components/Grip.vue';
 import { onMounted } from 'vue'
 
 const props = defineProps<{ chords: { chord: Chord, measure: number, beat: number }[], initialChordId: string }>()
@@ -55,7 +55,7 @@ const setChordRef = (el, i) => {
 
 const observer = new IntersectionObserver(
   (entries, observer) => {
-    entries.forEach(entry => {
+    entries.forEach((entry: IntersectionObserverEntry & { target: { firstChild: { id: string } } }) => {
       if (entry.isIntersecting) {
         const chordIds = chordCards.value.map(c => c.id)
         const currentId = entry.target.firstChild.id
