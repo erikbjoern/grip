@@ -192,7 +192,7 @@ function expandChord(beatPosition: BeatPosition) {
   } else {
     const chordData = { chord: getChord(beatPosition), ...beatPosition }
     targetedChordId.value = `${chordData.measure}-${chordData.beat}`
-    console.log(targetedChordId.value)
+
     expandedChords.value.push(chordData)
 
     let direction: 'previous' | 'next' = 'next'

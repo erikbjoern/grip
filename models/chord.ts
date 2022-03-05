@@ -14,12 +14,20 @@ export default class Chord {
     this.generateGrip()
   }
 
-  private sameStringOrFingerIsUsedTwice = () => {
+  private warnIfSameStringOrFingerIsUsedTwice = () => {
     const strings = this.fingerPositions?.map(p => p[0])
-    const fingers = this.fingerPositions?.map(p => p[2])
-    const isUniqueSet = (arr = []) => new Set(arr).size == arr.length
 
-    return (!isUniqueSet(strings) || !isUniqueSet(fingers))
+    if (new Set(strings).size !== strings.length) {
+      console.warn(`Same string is used twice in ${this.label}`)
+    }
+
+    if (this.fingerPositions.some((p1) => !!this.fingerPositions.find((p2) => {
+      const [fret, finger] = [1, 2]
+
+      return p1[finger] == p2[finger] && p1[fret] !== p2[fret]
+    }))) {
+      console.warn(`Same finger is used on different frets in ${this.label}`)
+    }
   }
 
   private generateFingerData = (string) => {
@@ -38,9 +46,7 @@ export default class Chord {
   }
 
   private generateGrip = () => {
-    if (this.sameStringOrFingerIsUsedTwice()) {
-      console.warn(`Same finger or string is used twice in ${this.label}`)
-    }
+    this.warnIfSameStringOrFingerIsUsedTwice()
 
     this.grip = Object.assign({}, ...this.availableStrings.map(this.generateFingerData))
   }

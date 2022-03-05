@@ -1,6 +1,7 @@
 import Chord from '@/models/chord'
 
 const chords: { [key: string]: Chord } = {
+  // [string, fret, finger]
   F: new Chord('F', [
     [1, 1, 1],
     [2, 3, 4],
