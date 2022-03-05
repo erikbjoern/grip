@@ -19,7 +19,7 @@
       >
         <div v-for="beat in song.timeSignature.beats" :key="beat" class="flex-1 w-full">
           <Grip
-            v-if="getChord({ measure, beat }) && isNotSameAsPreviousChord(measure, beat)"
+            v-if="(beat == 1 || isNotSameAsPreviousChord(measure, beat))"
             @click="expandChord({ measure, beat })"
             :chord="getChord({ measure, beat })"
             :expanded="false"
@@ -52,10 +52,10 @@ import { useRoute } from './.nuxt/imports'
 import Grip from '@/components/Grip.vue'
 import SwipeHorizontal from '@/components/SwipeHorizontal.vue'
 import Chord from '@/models/chord'
+import chords from '@/assets/chords'
 import test from "@/assets/songs/test"
 import one from "@/assets/songs/one"
 
-const { G_OPEN_FULL, C_OPEN, F, D_SEMI_BARRE, A_OPEN } = chords
 
 let song = test
 const route = useRoute()
@@ -98,10 +98,13 @@ const getBeat = ({ measure, beat } = {} as BeatPosition, target: Placement = 'cu
 
 const getChord = (beatPosition: BeatPosition, target: Placement = 'current'): Chord => {
   const { measure, beat } = getBeat(beatPosition, target)
+  let chord
 
   if (song.measures[measure - 1]) {
-    return song.measures[measure - 1][beat - 1]
+    chord = song.measures[measure - 1][beat - 1]
   }
+
+  return chord || chords.NO_CHORD
 }
 
 const isNotSameAsPreviousChord = (measure, beat) => {

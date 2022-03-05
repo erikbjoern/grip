@@ -1,7 +1,7 @@
 <template>
   <div
-    class="flex flex-col items-center bg-white border border-green-500 select-none"
-    :class="expanded ? 'rounded-lg px-10 py-6' : 'rounded-full min-w-[1.5rem] w-[fit-content] h-6'"
+    class="flex flex-col items-center bg-white border-green-500 select-none"
+    :class="[expanded ? 'rounded-lg px-10 py-6' : 'rounded-full min-w-[1.5rem] w-[fit-content] h-6', label !== 'N/C' && 'border']"
   >
     <p
       class="px-[0.3rem] mx-auto my-auto font-semibold leading-none whitespace-nowrap"

@@ -30,7 +30,8 @@ const chords: { [key: string]: Chord } = {
     [3, 2, 1],
     [4, 2, 2],
     [5, 2, 3],
-  ], [1])
+  ], [1]),
+  NO_CHORD: new Chord('N/C', [], [1, 2, 3, 4, 5, 6])
 }
 
 export default chords
