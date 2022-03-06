@@ -1,16 +1,13 @@
-import { String, Fret, Finger, Grip } from "@/types";
+import { String, Fret, Finger, Grip, StringProperty } from "@/types";
 
 type FingerPositions = (String | Fret | Finger)[][]
 
 export default class Chord {
   private availableStrings: String[] = [1, 2, 3, 4, 5, 6]
 
-  public strings: String[]
   public grip: Grip
 
-  constructor(public label: string, private fingerPositions: FingerPositions, stringsToSkip: String[]) {
-    this.strings = this.availableStrings.filter(s => !stringsToSkip.includes(s))
-
+  constructor(public label: string, private fingerPositions: FingerPositions, private stringProperties: StringProperty[]) {
     this.generateGrip()
   }
 
@@ -30,7 +27,7 @@ export default class Chord {
     }
   }
 
-  private generateFingerData = (string) => {
+  private generateFingerData = (string, i) => {
     const fingerPosition = this.fingerPositions?.find(p => p[0] == string) || []
 
     if (fingerPosition?.length > 1 && fingerPosition?.length < 3) {
@@ -41,6 +38,7 @@ export default class Chord {
       [string]: {
         fret: fingerPosition[1],
         finger: fingerPosition[2],
+        status: this.stringProperties[i]
       }
     }
   }
@@ -52,7 +50,7 @@ export default class Chord {
   }
 
   public getChord = () => {
-    const { label, grip, strings } = this
-    return { label, grip, strings }
+    const { label, grip } = this
+    return { label, grip }
   }
 }

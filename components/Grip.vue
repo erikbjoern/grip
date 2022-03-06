@@ -30,8 +30,8 @@
             <div
               v-if="string >= 1 && string <= 6"
               class="relative h-full border-r"
-              :style="{ width: `${string < 4 ? '4' : '3'}px` }"
-              :class="[stringIsPlayable(string) ? 'bg-green-700 border-green-200' : `bg-[#757060] border-[#bbaa99]`]"
+              :style="{ width: `${string < 3 ? '4' : string < 5 ? '3.5' : '3'}px` }"
+              :class="getStringStyle(grip[string].status)"
             >
               <!-- finger notation -->
               <div
@@ -64,7 +64,7 @@
 </template>
 
 <script setup lang="ts">
-import { String, BarreElementData } from '@/types'
+import { BarreElementData } from '@/types'
 import { onMounted } from 'vue'
 import Chord from '@/models/chord'
 
@@ -73,11 +73,9 @@ const props = defineProps<{
   expanded: boolean
 }>()
 
-const { label, grip, strings } = props.chord?.getChord()
+const { label, grip } = props.chord?.getChord()
 const availableStrings = [1, 2, 3, 4, 5, 6]
 const numberOfFrets = 4
-
-const stringIsPlayable = (string: number) => strings.includes(string as String)
 
 const barreElementData = ref<BarreElementData>(null)
 
@@ -126,6 +124,14 @@ const setBarreElementData = () => {
       left: `${leftMostElement.offsetLeft - leftMostElement.offsetWidth / 2}px`,
     }
   }
+}
+
+const getStringStyle = (status) => {
+  return {
+    'PICK': 'bg-green-700 border-green-200',
+    'VALID': 'bg-[#a2875e] border-yellow-200',
+    'SKIP': 'bg-[#4b3e52] border-[#bbaa99]',
+  }[status]
 }
 
 onMounted(() => {

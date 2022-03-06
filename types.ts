@@ -6,6 +6,7 @@ export type Finger = 1 | 2 | 3 | 4 | 5
 export type FingerData = {
   fret: Fret,
   finger: Finger,
+  status: StringProperty
 }
 export type Grip = { [key in String]: FingerData }
 export type Chord = {
@@ -33,3 +34,5 @@ export type Song = {
   timeSignature: TimeSignature,
   measures: ChordClass[][]
 }
+
+export type StringProperty = 'VALID' | 'PICK' | 'SKIP'
