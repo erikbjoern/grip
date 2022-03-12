@@ -7,7 +7,7 @@ export default class Chord {
 
   public grip: Grip
 
-  constructor(public label: string, private fingerPositions: FingerPositions, private stringProperties: StringProperty[]) {
+  constructor(public id: string, public label: string, private fingerPositions: FingerPositions, private stringProperties: StringProperty[]) {
     this.generateGrip()
   }
 
@@ -15,7 +15,7 @@ export default class Chord {
     const strings = this.fingerPositions?.map(p => p[0])
 
     if (new Set(strings).size !== strings.length) {
-      console.warn(`Same string is used twice in ${this.label}`)
+      console.warn(`Same string is used twice in ${this.id}`)
     }
 
     if (this.fingerPositions.some((p1) => !!this.fingerPositions.find((p2) => {
@@ -23,7 +23,7 @@ export default class Chord {
 
       return p1[finger] == p2[finger] && p1[fret] !== p2[fret]
     }))) {
-      console.warn(`Same finger is used on different frets in ${this.label}`)
+      console.warn(`Same finger is used on different frets in ${this.id}`)
     }
   }
 
@@ -31,7 +31,7 @@ export default class Chord {
     const fingerPosition = this.fingerPositions?.find(p => p[0] == string) || []
 
     if (fingerPosition?.length > 1 && fingerPosition?.length < 3) {
-      console.warn(`Chord ${this.label} is missing data`)
+      console.warn(`Chord ${this.id} is missing data`)
     }
 
     return {
@@ -50,7 +50,7 @@ export default class Chord {
   }
 
   public getChord = () => {
-    const { label, grip } = this
-    return { label, grip }
+    const { id, label, grip } = this
+    return { id, label, grip }
   }
 }

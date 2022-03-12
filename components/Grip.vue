@@ -1,62 +1,53 @@
 <template>
-  <div
-    class="flex flex-col items-center bg-white border-green-500 select-none"
-    :class="[expanded ? 'rounded-lg px-10 py-6' : 'rounded-full min-w-[1.5rem] w-[fit-content] h-6', label !== 'N/C' && 'border']"
-  >
-    <p
-      class="px-[0.3rem] mx-auto my-auto font-semibold leading-none whitespace-nowrap"
-      :class="expanded ? 'text-[2rem]' : ''"
-    >{{ label }}</p>
-
-    <div v-if="expanded" class="mt-4 w-screen max-w-[14rem] relative">
-      <!-- fretboard styling - background -->
-      <div class="bg-[#331111] absolute inset-x-0 top-0 bottom-1 z-0 rounded-t-md"></div>
-      <!-- nut styling -->
-      <div
-        class="relative z-10 flex-1 h-[10px] -mx-px bg-gray-700 border-t border-b-2 border-gray-900 rounded-b-sm rounded-t"
-      />
-      <div
-        class="grid relative grid-cols-[.5rem_1fr_1fr_1fr_1fr_1fr_max-content_.5rem] grid-rows-[repeat(4,max-content)] z-10"
-      >
-        <div v-for="fret in numberOfFrets" :key="fret" class="contents">
+  <div class="relative">
+    <!-- fretboard styling - background -->
+    <div class="bg-[#331111] absolute inset-x-0 top-0 bottom-1 z-0 rounded-t-md"></div>
+    <!-- nut styling -->
+    <div
+      class="relative z-10 flex-1 h-[10px] -mx-px bg-gray-700 border-t border-b-2 border-gray-900 rounded-b-sm rounded-t"
+    />
+    <div
+      class="grid relative grid-cols-[.5rem_1fr_1fr_1fr_1fr_1fr_max-content_.5rem] grid-rows-[repeat(4,max-content)] z-10"
+    >
+      <div v-for="fret in numberOfFrets" :key="fret" class="contents">
+        <div
+          v-for="string in [0, ...availableStrings, 0]"
+          :key="string"
+          :id="`${string}-${fret}`"
+          class="flex w-full"
+          :style="{ height: fret < 5 ? `${6 - (fret / 16)}rem` : '5.75rem' }"
+        >
+          <!-- string -->
           <div
-            v-for="string in [0, ...availableStrings, 0]"
-            :key="string"
-            :id="`${string}-${fret}`"
-            class="flex w-full"
-            :style="{ height: fret < 5 ? `${6 - (fret / 16)}rem` : '5.75rem' }"
+            v-if="string >= 1 && string <= 6"
+            class="relative h-full border-r"
+            :style="{ width: `${string < 3 ? '4' : string < 5 ? '3.5' : '3'}px` }"
+            :class="getStringStyle(grip[string].status)"
           >
-            <!-- string -->
+            <!-- finger notation -->
             <div
-              v-if="string >= 1 && string <= 6"
-              class="relative h-full border-r"
-              :style="{ width: `${string < 3 ? '4' : string < 5 ? '3.5' : '3'}px` }"
-              :class="getStringStyle(grip[string].status)"
+              v-if="grip[string].fret == fret && (!barreElementData || barreElementData.finger !== grip[string].finger)"
+              :id="`${string}-${fret}-${grip[string].finger}`"
+              class="absolute grid w-10 h-10 text-sm text-[#932500] -translate-x-1/2 -translate-y-1/2 bg-orange-100 border-2 border-[#F5C060] rounded-full shadow-inner place-items-center left-1/2 top-1/2"
+              :style="{ boxShadow: 'inset 1px 0 6px 0 rgb(150 130 100 / 0.4), 1px 3px 4px #55555540' }"
             >
-              <!-- finger notation -->
-              <div
-                v-if="grip[string].fret == fret && (!barreElementData || barreElementData.finger !== grip[string].finger)"
-                :id="`${string}-${fret}-${grip[string].finger}`"
-                class="absolute grid w-10 h-10 text-sm text-orange-800 -translate-x-1/2 -translate-y-1/2 bg-orange-100 border-2 border-orange-300 rounded-full shadow-inner place-items-center left-1/2 top-1/2"
-              >
-                <p
-                  class="text-[1.25rem] font-bold leading-none -translate-y-px"
-                >{{ grip[string].finger }}</p>
-              </div>
-              <!-- barre notation -->
-              <div
-                v-if="barreElementData && barreElementData.fret == fret && barreElementData.leftMostString == string"
-                class="absolute z-20 grid text-sm text-orange-800 bg-orange-100 border-2 border-orange-300 rounded-full shadow-inner place-items-center"
-                :style="{ top: barreElementData.top, left: barreElementData.left, width: barreElementData.width, height: barreElementData.height }"
-              >
-                <p
-                  class="text-[1.25rem] font-bold leading-none -translate-y-px"
-                >{{ barreElementData.finger }}</p>
-              </div>
+              <p
+                class="text-[1.25rem] font-bold leading-none -translate-y-px"
+              >{{ grip[string].finger }}</p>
             </div>
-            <!-- fret styling -->
-            <div v-if="fret > 1" class="z-10 flex-1 h-1 border-b border-gray-900 bg-neutral-600"></div>
+            <!-- barre notation -->
+            <div
+              v-if="barreElementData && barreElementData.fret == fret && barreElementData.leftMostString == string"
+              class="absolute z-20 grid text-sm text-[#932500] bg-orange-100 border-2 border-[#F5C060] rounded-full place-items-center"
+              :style="{ top: barreElementData.top, left: barreElementData.left, width: barreElementData.width, height: barreElementData.height, boxShadow: 'inset 1px 0 6px 0 rgb(150 130 100 / 0.4), 1px 3px 4px #55555540' }"
+            >
+              <p
+                class="text-[1.25rem] font-bold leading-none -translate-y-px"
+              >{{ barreElementData.finger }}</p>
+            </div>
           </div>
+          <!-- fret styling -->
+          <div v-if="fret > 1" class="z-10 flex-1 h-1 border-b border-gray-900 bg-neutral-600"></div>
         </div>
       </div>
     </div>
@@ -64,19 +55,15 @@
 </template>
 
 <script setup lang="ts">
-import { BarreElementData } from '@/types'
+import { BarreElementData, Grip } from '@/types';
 import { onMounted } from 'vue'
-import Chord from '@/models/chord'
 
-const props = defineProps<{
-  chord: Chord
-  expanded: boolean
+const { grip } = defineProps<{
+  grip: Grip
 }>()
 
-const { label, grip } = props.chord?.getChord()
 const availableStrings = [1, 2, 3, 4, 5, 6]
 const numberOfFrets = 4
-
 const barreElementData = ref<BarreElementData>(null)
 
 const setBarreElementData = () => {

@@ -10,6 +10,7 @@ export type FingerData = {
 }
 export type Grip = { [key in String]: FingerData }
 export type Chord = {
+  id: string
   label: string,
   grip: Grip,
   strings: String[]
@@ -30,9 +31,14 @@ type TimeSignature = {
   denominator: number
 }
 
+type ChordWithAlternatives = {
+  primaryChord: ChordClass,
+  alternativeChords: ChordClass[]
+}
+
 export type Song = {
   timeSignature: TimeSignature,
-  measures: ChordClass[][]
+  measures: (ChordClass | ChordWithAlternatives)[][]
 }
 
 export type StringProperty = 'VALID' | 'PICK' | 'SKIP'

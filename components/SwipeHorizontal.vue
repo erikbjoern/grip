@@ -1,33 +1,35 @@
 <template>
   <div
-    @click="emit('click')"
+    @click="$emit('close')"
     :class="!hasDoneInitialScroll && 'opacity-0'"
     class="flex items-center h-full snap-x snap-mandatory"
     ref="horizontalScrollContainer"
   >
     <div
-      v-for="(chordData, i) in props.chords"
+      v-for="(chordData, i) in props.expandedChords"
       class="flex flex-none w-screen min-w-screen snap-center"
       :key="[chordData.measure, chordData.beat].join('-')"
       :ref="el => setChordRef(el, i)"
     >
-      <Grip
-        :chord="chordData.chord"
+      <ChordCard
+        :primaryChord="chordData.chord"
+        :alternativeChords="chordData.alternativeChords"
         :expanded="true"
         :id="[chordData.measure, chordData.beat].join('-')"
         class="mx-auto shadow-md"
+        @click.stop="() => { }"
       />
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
-import Chord from '@/models/chord';
-import Grip from '@/components/Grip.vue';
+import { Chord } from '@/types';
 import { onMounted } from 'vue'
+import ChordCard from '@/components/ChordCard.vue';
 
-const props = defineProps<{ chords: { chord: Chord, measure: number, beat: number }[], initialChordId: string }>()
-const emit = defineEmits(['click', 'go'])
+const props = defineProps<{ expandedChords: { chord: Chord, alternativeChords: Chord[], measure: number, beat: number }[], initialChordId: string }>()
+const emit = defineEmits(['close', 'go'])
 
 const horizontalScrollContainer = ref<HTMLElement>(null)
 const chordCards = ref<Element[]>([])

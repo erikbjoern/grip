@@ -4,9 +4,9 @@
       <div v-if="expandedChords.length" class="absolute inset-0 z-10 bg-gray-500 bg-opacity-75">
         <SwipeHorizontal
           @go="go"
-          @click="expandChord(null)"
+          @close="expandChord(null)"
           class="z-20 max-w-full min-w-0 overflow-x-scroll"
-          :chords="expandedChords"
+          :expandedChords="expandedChords"
           :initialChordId="targetedChordId"
         />
       </div>
@@ -18,10 +18,10 @@
         class="flex items-end flex-auto w-32 flex-nowrap"
       >
         <div v-for="beat in song.timeSignature.beats" :key="beat" class="flex-1 w-full">
-          <Grip
+          <ChordCard
             v-if="(beat == 1 || isNotSameAsPreviousChord(measure, beat))"
             @click="expandChord({ measure, beat })"
-            :chord="getChord({ measure, beat })"
+            :primaryChord="getChord({ measure, beat })"
             :expanded="false"
             class="-translate-x-px cursor-pointer"
           />
@@ -34,7 +34,7 @@
               v-for="noteValue in song.timeSignature.denominator"
               :key="noteValue"
               class="h-[2px] flex-1 bg-gray-900"
-            ></div>
+            />
             <div
               class="w-px"
               :class="[measure * beat == song.measures.length * song.timeSignature.beats ? 'border-r-2 border-l border-gray-900' : 'bg-gray-900', (beat) % song.timeSignature.beats == 0 ? 'h-full' : 'h-2']"
@@ -49,9 +49,9 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { useRoute } from './.nuxt/imports'
-import Grip from '@/components/Grip.vue'
+import { Chord } from '@/types'
+import ChordCard from '@/components/ChordCard.vue'
 import SwipeHorizontal from '@/components/SwipeHorizontal.vue'
-import Chord from '@/models/chord'
 import chords from '@/assets/chords'
 import test from "@/assets/songs/test"
 import one from "@/assets/songs/one"
@@ -96,7 +96,7 @@ const getBeat = ({ measure, beat } = {} as BeatPosition, target: Placement = 'cu
   return { measure: targetMeasure, beat: targetBeat }
 }
 
-const getChord = (beatPosition: BeatPosition, target: Placement = 'current'): Chord => {
+const getBeatData = (beatPosition: BeatPosition, target: Placement = 'current') => {
   const { measure, beat } = getBeat(beatPosition, target)
   let chord
 
@@ -104,7 +104,21 @@ const getChord = (beatPosition: BeatPosition, target: Placement = 'current'): Ch
     chord = song.measures[measure - 1][beat - 1]
   }
 
-  return chord || chords.NO_CHORD
+  return (chord || chords.NO_CHORD)
+}
+
+const getChord = (beatPosition: BeatPosition, target: Placement = 'current'): Chord => {
+  const beatData = getBeatData(beatPosition, target)
+  const chord = 'primaryChord' in beatData ? beatData.primaryChord : beatData
+
+  return chord.getChord()
+}
+
+const getAlternativeChords = (beatPosition: BeatPosition, target: Placement = 'current'): Chord[] => {
+  const beatData = getBeatData(beatPosition, target)
+  const chords = 'alternativeChords' in beatData ? beatData.alternativeChords : []
+
+  return chords.map(c => c.getChord())
 }
 
 const isNotSameAsPreviousChord = (measure, beat) => {
@@ -113,10 +127,10 @@ const isNotSameAsPreviousChord = (measure, beat) => {
   const thisChord = getChord({ measure, beat })
   const previousChord = getChord({ measure, beat }, 'previous')
 
-  return thisChord !== previousChord
+  return thisChord.id !== previousChord.id
 }
 
-type ChordData = { chord: Chord, measure: number, beat: number }
+type ChordData = { chord: Chord, alternativeChords: Chord[], measure: number, beat: number }
 let expandedChords = ref<ChordData[]>([])
 
 function fillupCurrentChords(direction: 'previous' | 'next') {
@@ -146,7 +160,12 @@ function fillupCurrentChords(direction: 'previous' | 'next') {
 
   if (!nextChord) return
 
-  const chordData: ChordData = { chord: nextChord, measure: nextBeat.measure, beat: nextBeat.beat }
+  const chordData: ChordData = {
+    chord: nextChord,
+    alternativeChords: getAlternativeChords(nextBeat),
+    measure: nextBeat.measure,
+    beat: nextBeat.beat
+  }
 
   if (direction == 'next') {
     expandedChords.value.push(chordData)
@@ -179,7 +198,11 @@ function expandChord(beatPosition: BeatPosition) {
       expandedChords.value.pop()
     }
   } else {
-    const chordData = { chord: getChord(beatPosition), ...beatPosition }
+    const chordData = {
+      chord: getChord(beatPosition),
+      alternativeChords: getAlternativeChords(beatPosition),
+      ...beatPosition
+    }
     targetedChordId.value = `${chordData.measure}-${chordData.beat}`
 
     expandedChords.value.push(chordData)
