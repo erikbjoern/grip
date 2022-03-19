@@ -1,15 +1,18 @@
-import { String, Fret, Finger, Grip, StringProperty } from "@/types";
+import { StringNum, FretNum, FingerNum, Grip, StringStatus } from "@/types";
 
-type FingerPositions = (String | Fret | Finger)[][]
+type FingerPositions = (StringNum | FretNum | FingerNum)[][]
 
 export default class Chord {
-  private availableStrings: String[] = [1, 2, 3, 4, 5, 6]
+  private availableStrings: StringNum[] = [1, 2, 3, 4, 5, 6]
 
   public grip: Grip
 
-  constructor(public id: string, public label: string, private fingerPositions: FingerPositions, private stringProperties: StringProperty[]) {
-    this.generateGrip()
-  }
+  constructor(
+    public id: string,
+    private label: string,
+    private fingerPositions: FingerPositions,
+    private stringProperties: StringStatus[]
+  ) { }
 
   private warnIfSameStringOrFingerIsUsedTwice = () => {
     const strings = this.fingerPositions?.map(p => p[0])
@@ -27,8 +30,12 @@ export default class Chord {
     }
   }
 
+  private getFingerPositionDataForString = (string: StringNum) => {
+    return this.fingerPositions?.find(p => p[0] == string) || []
+  }
+
   private generateFingerData = (string, i) => {
-    const fingerPosition = this.fingerPositions?.find(p => p[0] == string) || []
+    const fingerPosition = this.getFingerPositionDataForString(string)
 
     if (fingerPosition?.length > 1 && fingerPosition?.length < 3) {
       console.warn(`Chord ${this.id} is missing data`)
@@ -50,6 +57,8 @@ export default class Chord {
   }
 
   public getChord = () => {
+    this.generateGrip()
+
     const { id, label, grip } = this
     return { id, label, grip }
   }

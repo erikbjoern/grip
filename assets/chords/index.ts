@@ -1,5 +1,5 @@
 import Chord from '@/models/chord'
-import { StringProperty } from '~~/types'
+import { StringStatus } from '~~/types'
 
 const P = 'PICK'
 const V = 'VALID'
@@ -10,7 +10,11 @@ const USE_5_STANDARD: StringProperty[] = [S, P, V, P, P, P]
 const USE_4_STANDARD: StringProperty[] = [S, S, P, P, P, P]
 const USE_5_SKIP_A: StringProperty[] = [P, S, V, P, P, P]
 
-const chords = {
+const USE_6_STANDARD: StringStatus[] = [P, V, V, P, P, P]
+const USE_5_STANDARD: StringStatus[] = [S, P, V, P, P, P]
+const USE_4_STANDARD: StringStatus[] = [S, S, P, P, P, P]
+const USE_5_SKIP_A: StringStatus[] = [P, S, V, P, P, P]
+const baseChords = {
   // [string, fret, finger]
   F: new Chord('f', 'F', [
     [1, 1, 1],
@@ -48,7 +52,7 @@ const chords = {
   NO_CHORD: new Chord('no-chord', 'N/C', [], [S, S, S, S, S, S])
 }
 
-const chordIds = Object.values(chords).map(c => c.id)
+const chordIds = Object.values(baseChords).map(c => c.id)
 
 for (const id of chordIds) {
   if (chordIds.indexOf(id) !== chordIds.lastIndexOf(id)) {
@@ -57,4 +61,4 @@ for (const id of chordIds) {
   }
 }
 
-export default chords
+export default { ...baseChords }

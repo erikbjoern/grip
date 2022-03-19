@@ -1,19 +1,19 @@
 import ChordClass from '@/models/chord'
 
-export type Fret = number
-export type String = 1 | 2 | 3 | 4 | 5 | 6
-export type Finger = 1 | 2 | 3 | 4 | 5
+export type FretNum = number
+export type StringNum = 1 | 2 | 3 | 4 | 5 | 6
+export type FingerNum = 1 | 2 | 3 | 4 | 5
 export type FingerData = {
-  fret: Fret,
-  finger: Finger,
-  status: StringProperty
+  fret: FretNum,
+  finger: FingerNum,
+  status: StringStatus
 }
-export type Grip = { [key in String]: FingerData }
+export type Grip = { [key in StringNum]: FingerData }
 export type Chord = {
   id: string
   label: string,
   grip: Grip,
-  strings: String[]
+  strings: StringNum[]
 }
 
 export type BarreElementData = {
@@ -41,4 +41,4 @@ export type Song = {
   measures: (ChordClass | ChordWithAlternatives)[][]
 }
 
-export type StringProperty = 'VALID' | 'PICK' | 'SKIP'
+export type StringStatus = 'VALID' | 'PICK' | 'SKIP'
