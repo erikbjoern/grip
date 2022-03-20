@@ -1,7 +1,7 @@
 import chords from "@/assets/chords";
 import { Song } from "@/types";
 
-const { G_OPEN_FULL, C_OPEN, F, D_SEMI_BARRE, A_OPEN } = chords
+const { G_OPEN, C_OPEN, F, D_SEMI_BARRE, A_OPEN, CMAJ7_OPEN_BASS_G_S } = chords
 
 const song: Song = {
   timeSignature: {
@@ -9,18 +9,18 @@ const song: Song = {
     denominator: 4,
   },
   measures: [
-    [G_OPEN_FULL, G_OPEN_FULL, G_OPEN_FULL, G_OPEN_FULL],
+    [G_OPEN, G_OPEN, G_OPEN, G_OPEN],
     [C_OPEN, C_OPEN, C_OPEN, C_OPEN],
-    [G_OPEN_FULL, G_OPEN_FULL, G_OPEN_FULL, G_OPEN_FULL],
+    [G_OPEN, G_OPEN, G_OPEN, G_OPEN],
     [C_OPEN, C_OPEN, C_OPEN, C_OPEN],
-    [G_OPEN_FULL, C_OPEN, G_OPEN_FULL, C_OPEN],
+    [G_OPEN, C_OPEN, G_OPEN, C_OPEN],
     [C_OPEN, C_OPEN, C_OPEN, C_OPEN],
-    [F, D_SEMI_BARRE],
-    [G_OPEN_FULL, G_OPEN_FULL, G_OPEN_FULL, G_OPEN_FULL],
+    [F, D_SEMI_BARRE, CMAJ7_OPEN_BASS_G_S],
+    [G_OPEN, G_OPEN, G_OPEN, G_OPEN],
     [C_OPEN, C_OPEN, C_OPEN, C_OPEN],
-    [G_OPEN_FULL, G_OPEN_FULL, G_OPEN_FULL, G_OPEN_FULL],
+    [G_OPEN, G_OPEN, G_OPEN, G_OPEN],
     [C_OPEN, C_OPEN, C_OPEN, C_OPEN],
-    [G_OPEN_FULL, C_OPEN, G_OPEN_FULL, C_OPEN],
+    [G_OPEN, C_OPEN, G_OPEN, C_OPEN],
     [C_OPEN, C_OPEN, A_OPEN, C_OPEN],
     [F, D_SEMI_BARRE]
   ]

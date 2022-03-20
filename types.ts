@@ -1,8 +1,9 @@
-import ChordClass from '@/models/chord'
+import ChordClass from '~~/models/chord'
 
 export type FretNum = number
 export type StringNum = 1 | 2 | 3 | 4 | 5 | 6
 export type FingerNum = 1 | 2 | 3 | 4 | 5
+export type FingerDataArray = (StringNum | FretNum | FingerNum)[]
 export type FingerData = {
   fret: FretNum,
   finger: FingerNum,
