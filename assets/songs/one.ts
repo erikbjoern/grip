@@ -23,7 +23,7 @@ const song: Song = {
     [chords.D_OPEN, chords.D_OPEN, chords.D7_OPEN, chords.D7_OPEN],
     [chords.G_OPEN_XS, chords.G_OPEN_XS, chords.A7_OPEN_BASS_G_S_USE_2_1, chords.A7_OPEN_BASS_G_S_USE_2_1],
     [chords.F_SHARP_MINOR_SKIP_A, chords.F_SHARP_MINOR_SKIP_A, chords.B7_LEAVE_E, chords.B7_LEAVE_E],
-    [chords.E_MINOR_OPEN_S, chords.D_OPEN_BASS_F_SHARP_USE_T, chords.E_MINOR_BASS_G_SKIP_A_D, chords.A7_OPEN_USE_2_LEAVE_E],
+    [chords.E_MINOR_OPEN_S, chords.D_OPEN_BASS_F_SHARP_USE_T, chords.E_MINOR_BASS_G_SKIP_A_LEAVE_D, chords.A7_OPEN_USE_2_LEAVE_E],
     [chords.D_OPEN, chords.D_OPEN, chords.D7_OPEN, chords.D7_OPEN],
   ]
 }

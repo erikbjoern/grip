@@ -181,7 +181,7 @@ const extendedChords = {
     add: [[1, 3, 3]]
   }),
   E_MINOR_BASS_G_SKIP_A_LEAVE_D: baseChords.E_MINOR_OPEN.extend({
-    id: 'e-minor-bass-g-skip-a-d',
+    id: 'e-minor-bass-g-skip-a-leave-d',
     label: 'Em/G',
     lift: [2],
     add: [[1, 3, 3], [3, 2, 1]],
