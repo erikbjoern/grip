@@ -1,5 +1,13 @@
 import { StringNum, FingerDataArray, Grip, StringStatus } from "@/types";
 
+type ChordExtensionData = {
+  id: string,
+  label?: string,
+  lift?: StringNum[],
+  add?: FingerDataArray[],
+  pattern?: StringStatus[]
+}
+
 export default class Chord {
   private availableStrings: StringNum[] = [1, 2, 3, 4, 5, 6]
 
@@ -57,7 +65,7 @@ export default class Chord {
     this.grip = Object.assign({}, ...this.availableStrings.map(this.generateFingerData))
   }
 
-  private performExtensionOnInstance = (instance, data) => {
+  private performExtensionOnInstance = (instance: Chord, data: ChordExtensionData) => {
     // TODO: add validations
     data.lift?.forEach(string => {
       const indexOfFingerPosition = instance.fingerPositions.indexOf(instance.getFingerPositionDataForString(string))
@@ -85,7 +93,7 @@ export default class Chord {
     return instance
   }
 
-  public extend = (data: { id: string, label?: string, lift?: StringNum[], add?: FingerDataArray[], pattern?: StringStatus[] }) => {
+  public extend = (data: ChordExtensionData) => {
     const chordCopy = new Chord(data.id, data.label || this.label, this.fingerPositions, data.pattern || this.stringProperties)
     return this.performExtensionOnInstance(chordCopy, data)
   }
