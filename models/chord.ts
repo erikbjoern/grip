@@ -79,7 +79,7 @@ export default class Chord {
       const string = fingerPositionData[0] as StringNum
       const existingPositionData = instance.getFingerPositionDataForString(string)
 
-      if (existingPositionData) {
+      if (existingPositionData.length) {
         instance.fingerPositions.splice(instance.fingerPositions.indexOf(existingPositionData), 1, fingerPositionData)
       } else {
         instance.fingerPositions.push(fingerPositionData)
@@ -94,7 +94,7 @@ export default class Chord {
   }
 
   public extend = (data: ChordExtensionData) => {
-    const chordCopy = new Chord(data.id, data.label || this.label, this.fingerPositions, data.pattern || this.stringProperties)
+    const chordCopy = new Chord(data.id, data.label || this.label, JSON.parse(JSON.stringify(this.fingerPositions)), data.pattern || this.stringProperties)
     return this.performExtensionOnInstance(chordCopy, data)
   }
 

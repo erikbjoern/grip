@@ -140,8 +140,9 @@ function fillupCurrentChords(direction: 'previous' | 'next') {
 
   let nextBeat = getBeat(outerMostChord, direction)
   let nextChord
+  let safetyCounter = 0
 
-  while (!nextChord) {
+  while (!nextChord && safetyCounter < 100) {
     if (nextBeat.measure * nextBeat.beat <= 0 ||
       nextBeat.measure * nextBeat.beat >
       song.measures.length * song.timeSignature.beats) {
@@ -152,10 +153,12 @@ function fillupCurrentChords(direction: 'previous' | 'next') {
 
     if (!nextChord && nextBeat.measure * nextBeat.beat >= song.measures.length * song.timeSignature.beats) {
       break
-    } else if (!nextChord || nextChord?.label == outerMostChord?.chord?.label) {
+    } else if (!nextChord || nextChord?.id == outerMostChord?.chord?.id) {
       nextBeat = getBeat(nextBeat, direction)
       nextChord = undefined
     }
+
+    safetyCounter++
   }
 
   if (!nextChord) return
