@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col items-center w-screen h-[90vh] min-w-0 p-8">
+  <div class="flex flex-col items-center w-screen h-screen min-w-0 p-8 overflow-auto">
     <transition name="fade" mode="out-in">
       <div v-if="expandedChords.length" class="absolute inset-0 z-10 bg-gray-500 bg-opacity-75">
         <SwipeHorizontal
@@ -11,7 +11,7 @@
         />
       </div>
     </transition>
-    <div class="flex flex-wrap flex-1 max-w-lg min-w-0 gap-y-8">
+    <div class="flex flex-wrap flex-1 max-w-lg min-w-0 pt-6 pb-24 gap-y-8">
       <div
         v-for="measure in song.measures.length"
         :key="measure"
