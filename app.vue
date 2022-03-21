@@ -11,11 +11,11 @@
         />
       </div>
     </transition>
-    <div class="flex flex-wrap flex-1 max-w-sm min-w-0 gap-y-8">
+    <div class="flex flex-wrap flex-1 max-w-lg min-w-0 gap-y-8">
       <div
         v-for="measure in song.measures.length"
         :key="measure"
-        class="flex items-end flex-auto w-32 flex-nowrap"
+        class="flex items-end flex-auto w-48 flex-nowrap"
       >
         <div v-for="beat in song.timeSignature.beats" :key="beat" class="flex-1 w-full">
           <ChordCard
@@ -57,11 +57,11 @@ import test from "@/assets/songs/test"
 import one from "@/assets/songs/one"
 
 
-let song = test
+let song = one
 const route = useRoute()
 
-if (route.path == '/1') {
-  song = one
+if (route.path == '/test') {
+  song = test
 }
 
 const targetedChordId = ref('')
