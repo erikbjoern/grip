@@ -155,12 +155,12 @@ const extendedChords = {
     lift: [4],
     pattern: A_D_G_B_LEAVE_E,
   }),
-  A7_OPEN_USE_2: baseChords.A_OPEN.extend({
+  A7_OPEN_USE_2_LEAVE_E: baseChords.A_OPEN.extend({
     id: 'a7-open-use-2',
     label: 'A7',
     lift: [4],
     add: [[5, 2, 2]],
-    pattern: A_D_G_B
+    pattern: A_D_G_B_LEAVE_E
   }),
   A7_OPEN_BASS_G_S_USE_2_1: baseChords.A_OPEN.extend({
     id: 'a7-open-bass-g-s-use-2-1',
@@ -179,6 +179,13 @@ const extendedChords = {
     id: 'e-minor-bass-g',
     label: 'Em/G',
     add: [[1, 3, 3]]
+  }),
+  E_MINOR_BASS_G_SKIP_A_LEAVE_D: baseChords.E_MINOR_OPEN.extend({
+    id: 'e-minor-bass-g-skip-a-d',
+    label: 'Em/G',
+    lift: [2],
+    add: [[1, 3, 3], [3, 2, 1]],
+    pattern: E_G_B_E_LEAVE_D,
   }),
   B7_LEAVE_E: baseChords.B.extend({
     id: 'b7-leave-e',
