@@ -6,6 +6,7 @@ const V = 'VALID'
 const S = 'SKIP'
 
 const E_D_G_B: StringStatus[] = [P, S, P, P, P, S]
+const E_D_G_B_LEAVE_E: StringStatus[] = [P, S, P, P, P, V]
 const E_G_B_E_LEAVE_A_D: StringStatus[] = [P, V, V, P, P, P]
 const E_G_B_E_LEAVE_D: StringStatus[] = [P, S, V, P, P, P]
 const E_G_B_E: StringStatus[] = [P, S, S, P, P, P]
@@ -19,8 +20,8 @@ const baseChords = {
   // [string, fret, finger]
   F: new Chord('f', 'F', [
     [1, 1, 1],
-    [2, 3, 4],
-    [3, 3, 5],
+    [2, 3, 3],
+    [3, 3, 4],
     [4, 2, 2],
     [5, 1, 1],
     [6, 1, 1],
@@ -31,10 +32,10 @@ const baseChords = {
     [5, 1, 1],
   ], A_G_B_E_LEAVE_D),
   G_OPEN: new Chord('g-open', 'G', [
-    [1, 3, 3],
-    [2, 2, 2],
-    [5, 3, 4],
-    [6, 3, 5],
+    [1, 3, 2],
+    [2, 2, 1],
+    [5, 3, 3],
+    [6, 3, 4],
   ], E_G_B_E_LEAVE_A_D),
   D_OPEN: new Chord('d-open', 'D', [
     [4, 2, 1],
@@ -60,7 +61,7 @@ const baseChords = {
     [3, 4, 2],
     [4, 4, 3],
     [5, 4, 4],
-    [6, 1, 1],
+    [6, 2, 1],
   ], A_G_B_E_LEAVE_D),
   F_SHARP_MINOR: new Chord('f-sharp-minor', 'F#m', [
     [1, 2, 1],
@@ -82,7 +83,7 @@ const extendedChords = {
     id: 'cmaj7-open-bass-g-s',
     label: 'Cmaj7/G',
     add: [[1, 3, 3]] as FingerDataArray[],
-    lift: [2, 4],
+    lift: [2, 5],
     pattern: E_D_G_B,
   }),
   G_OPEN_XS: baseChords.G_OPEN.extend({
@@ -93,6 +94,7 @@ const extendedChords = {
   G_OPEN_XXS: baseChords.G_OPEN.extend({
     id: 'g-open-xxs',
     lift: [2, 5, 6],
+    add: [[1, 3, 3]],
     pattern: E_D_G_B
   }),
   G_OPEN_BASS_B_XS_USE_2_4: baseChords.G_OPEN.extend({
@@ -125,17 +127,19 @@ const extendedChords = {
     id: 'd7-open-skip-e',
     label: 'D7',
     lift: [6],
+    add: [[4, 2, 2,], [5, 1, 1]],
     pattern: D_G_B,
   }),
   D7_OPEN_SUS4: baseChords.D_OPEN.extend({
     id: 'd7-open-sus4',
     label: 'D7sus4',
-    add: [[6, 3, 5]]
+    add: [[4, 2, 2], [5, 1, 1], [6, 3, 5]]
   }),
   D7_OPEN_SUS4_BASS_A: baseChords.D_OPEN.extend({
     id: 'd7-open-sus4-bass-a',
     label: 'D7sus4/A',
     lift: [4, 6],
+    add: [[5, 1, 1]],
     pattern: A_D_G_B,
   }),
   D7_OPEN_BASS_C_S: baseChords.D_OPEN.extend({
@@ -161,7 +165,7 @@ const extendedChords = {
   A7_OPEN_BASS_G_S_USE_2_1: baseChords.A_OPEN.extend({
     id: 'a7-open-bass-g-s-use-2-1',
     label: 'A7/G',
-    lift: [3],
+    lift: [3, 4],
     add: [[1, 3, 2], [5, 2, 1]],
     pattern: E_G_B_E,
   }),
@@ -169,7 +173,7 @@ const extendedChords = {
     id: 'e-minor-open-s',
     lift: [2],
     add: [[3, 2, 1]],
-    pattern: E_D_G_B,
+    pattern: E_D_G_B_LEAVE_E,
   }),
   E_MINOR_BASS_G: baseChords.E_MINOR_OPEN.extend({
     id: 'e-minor-bass-g',
