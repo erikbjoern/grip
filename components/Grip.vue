@@ -1,7 +1,7 @@
 <template>
   <div class="relative">
     <!-- fretboard styling - background -->
-    <div class="bg-[#331111] absolute inset-x-0 top-0 bottom-1 z-0 rounded-t-md"></div>
+    <div class="bg-[#331111] absolute inset-x-0 top-0 bottom-1 z-0 rounded-t-md" ref="fretBoard"></div>
     <!-- nut styling -->
     <div
       class="relative z-10 flex-1 h-[10px] -mx-px bg-gray-700 border-t border-b-2 border-gray-900 rounded-b-sm rounded-t"
@@ -14,7 +14,7 @@
           v-for="string in [0, ...availableStrings, 0]"
           :key="string"
           :id="`${string}-${fret}`"
-          class="flex w-full"
+          class="flex"
           :style="{ height: fret < 5 ? `${6 - (fret / 16)}rem` : '5.75rem' }"
         >
           <!-- string -->
@@ -39,7 +39,14 @@
             <div
               v-if="barreElementData && barreElementData.fret == fret && barreElementData.leftMostString == string"
               class="absolute z-20 grid text-sm text-[#932500] bg-orange-100 border-2 border-[#F5C060] rounded-full place-items-center"
-              :style="{ top: barreElementData.top, left: barreElementData.left, width: barreElementData.width, height: barreElementData.height, boxShadow: 'inset 1px 0 6px 0 rgb(150 130 100 / 0.4), 1px 3px 4px #55555540' }"
+              :style="{
+                top: barreElementData.top,
+                left: barreElementData.left,
+                width: barreElementData.width,
+                maxWidth: `${fretBoard?.offsetWidth + 20}px`,
+                height: barreElementData.height,
+                boxShadow: 'inset 1px 0 6px 0 rgb(150 130 100 / 0.4), 1px 3px 4px #55555540'
+              }"
             >
               <p
                 class="text-[1.25rem] font-bold leading-none -translate-y-px"
@@ -65,6 +72,8 @@ const { grip } = defineProps<{
 const availableStrings = [1, 2, 3, 4, 5, 6]
 const numberOfFrets = 4
 const barreElementData = ref<BarreElementData>(null)
+const fretBoard = ref(null)
+let maybeStringGapWidth = 45.81
 
 const setBarreElementData = () => {
   const stringData = Object.entries(grip)
@@ -99,7 +108,7 @@ const setBarreElementData = () => {
     const stringGapElement = document.getElementById(`${stringL}-${fretL}`)
 
     const stringSpan = rightMostString.string - leftMostString.string
-    const width = leftMostElement.offsetWidth + stringGapElement.offsetWidth * stringSpan
+    const width = leftMostElement.offsetWidth + ((stringGapElement.offsetWidth || maybeStringGapWidth) * stringSpan)
 
     barreElementData.value = {
       finger: barreFinger.finger,

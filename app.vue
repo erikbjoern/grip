@@ -104,7 +104,7 @@ const getBeatData = (beatPosition: BeatPosition, target: Placement = 'current') 
     chord = song.measures[measure - 1][beat - 1]
   }
 
-  return (chord || chords.NO_CHORD)
+  return chord || chords.NO_CHORD
 }
 
 const getChord = (beatPosition: BeatPosition, target: Placement = 'current'): Chord => {
@@ -132,8 +132,9 @@ const isNotSameAsPreviousChord = (measure, beat) => {
 
 type ChordData = { chord: Chord, alternativeChords: Chord[], measure: number, beat: number }
 let expandedChords = ref<ChordData[]>([])
+const CHORD_LIST_MAX_LENGTH = 20
 
-function fillupCurrentChords(direction: 'previous' | 'next') {
+function fillupCurrentChords(direction: 'previous' | 'next', currentIndex?: number) {
   const outerMostChord = direction == 'next'
     ? expandedChords.value[expandedChords.value.length - 1]
     : expandedChords.value[0]
@@ -144,7 +145,7 @@ function fillupCurrentChords(direction: 'previous' | 'next') {
 
   while (!nextChord && safetyCounter < 100) {
     if (nextBeat.measure * nextBeat.beat <= 0 ||
-      nextBeat.measure * nextBeat.beat >
+      nextBeat.measure * nextBeat.beat >=
       song.measures.length * song.timeSignature.beats) {
       break
     }
@@ -170,10 +171,15 @@ function fillupCurrentChords(direction: 'previous' | 'next') {
     beat: nextBeat.beat
   }
 
+  const listIsTooLong = expandedChords.value.length > CHORD_LIST_MAX_LENGTH
+  // don't shift/pop items if currently focused card is close to edges
+  const isCurrentlyCloseToMiddle = Math.abs((currentIndex || 0) - (CHORD_LIST_MAX_LENGTH / 2)) > 5
+  const shouldReduceList = listIsTooLong && (isCurrentlyCloseToMiddle || isNaN(currentIndex))
+
   if (direction == 'next') {
     expandedChords.value.push(chordData)
 
-    if (expandedChords.value.length > 20) {
+    if (shouldReduceList) {
       expandedChords.value.shift()
     }
   }
@@ -181,14 +187,14 @@ function fillupCurrentChords(direction: 'previous' | 'next') {
   if (direction == 'previous') {
     expandedChords.value.unshift(chordData)
 
-    if (expandedChords.value.length > 20) {
+    if (shouldReduceList) {
       expandedChords.value.pop()
     }
   }
 }
 
-function go(direction: 'previous' | 'next') {
-  fillupCurrentChords(direction)
+function go(direction: 'previous' | 'next', currentIndex) {
+  fillupCurrentChords(direction, currentIndex)
 
   expandedChords.value = [...expandedChords.value]
 }
