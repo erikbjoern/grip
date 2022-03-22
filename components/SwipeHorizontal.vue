@@ -34,7 +34,7 @@
         :expanded="true"
         :id="[chordData.measure, chordData.beat].join('-')"
         name="chord-card"
-        class="mx-auto shadow-md"
+        class="mx-auto shadow-md -translate-y-[10vh] sm:-translate-y-[5vh]"
         @click.stop="() => { }"
       />
       <button

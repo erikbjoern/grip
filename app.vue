@@ -1,7 +1,10 @@
 <template>
   <div class="flex flex-col items-center w-screen h-screen min-w-0 p-8 overflow-auto">
     <transition name="fade" mode="out-in">
-      <div v-if="expandedChords.length" class="absolute inset-0 z-10 bg-gray-500 bg-opacity-75">
+      <div
+        v-if="expandedChords.length"
+        class="fixed h-[110vh] inset-0 z-10 bg-gray-500 bg-opacity-75"
+      >
         <SwipeHorizontal
           @go="go"
           @close="expandChord(null)"
