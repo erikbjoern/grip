@@ -138,9 +138,17 @@ let expandedChords = ref<ChordData[]>([])
 const CHORD_LIST_MAX_LENGTH = 20
 
 function fillupCurrentChords(direction: 'previous' | 'next', currentIndex?: number) {
+  const chordList = expandedChords.value
+  const isMovingAwayFromBeginningOfList = currentIndex < 5 && direction == 'next'
+  const isMovingAwayFromEndOfLIst = currentIndex > chordList.length - 5 && direction == 'previous'
+
+  if (chordList.length > 10 && (isMovingAwayFromBeginningOfList || isMovingAwayFromEndOfLIst)) {
+    return
+  }
+
   const outerMostChord = direction == 'next'
-    ? expandedChords.value[expandedChords.value.length - 1]
-    : expandedChords.value[0]
+    ? chordList[chordList.length - 1]
+    : chordList[0]
 
   let nextBeat = getBeat(outerMostChord, direction)
   let nextChord
@@ -174,15 +182,12 @@ function fillupCurrentChords(direction: 'previous' | 'next', currentIndex?: numb
     beat: nextBeat.beat
   }
 
-  const listIsTooLong = expandedChords.value.length > CHORD_LIST_MAX_LENGTH
-  // don't shift/pop items if currently focused card is close to edges
-  const isCurrentlyCloseToMiddle = Math.abs((currentIndex || 0) - (CHORD_LIST_MAX_LENGTH / 2)) > 5
-  const shouldReduceList = listIsTooLong && (isCurrentlyCloseToMiddle || isNaN(currentIndex))
+  const listIsTooLong = chordList.length > CHORD_LIST_MAX_LENGTH
 
   if (direction == 'next') {
     expandedChords.value.push(chordData)
 
-    if (shouldReduceList) {
+    if (listIsTooLong) {
       expandedChords.value.shift()
     }
   }
@@ -190,7 +195,7 @@ function fillupCurrentChords(direction: 'previous' | 'next', currentIndex?: numb
   if (direction == 'previous') {
     expandedChords.value.unshift(chordData)
 
-    if (shouldReduceList) {
+    if (listIsTooLong) {
       expandedChords.value.pop()
     }
   }
