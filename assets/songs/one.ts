@@ -1,7 +1,29 @@
 import chords from "@/assets/chords";
 import { Song } from "@/types";
 
-const { C_OPEN, F, D_SEMI_BARRE, A_OPEN } = chords
+const { 
+  A_MINOR7_OPEN_LEAVE_E,
+  A7_OPEN_BASS_G_S_USE_2_1,
+  A7_OPEN_USE_2_LEAVE_E,
+  B7_LEAVE_E,
+  C_OPEN,
+  CMAJ7_OPEN_BASS_G_S,
+  D_OPEN_BASS_F_SHARP_USE_T,
+  D_OPEN,
+  D7_OPEN_BASS_C_S,
+  D7_OPEN_SKIP_E,
+  D7_OPEN_SUS4_BASS_A,
+  D7_OPEN_SUS4,
+  D7_OPEN,
+  D_OPEN_SUS4,
+  E_MINOR_BASS_G_SKIP_A_LEAVE_D,
+  E_MINOR_OPEN_S,
+  F_SHARP_MINOR_SKIP_A,
+  G_OPEN_BASS_B_XS_USE_2_4,
+  G_OPEN_XS,
+  G_OPEN_XXS,
+  G_OPEN_SUS2_XS
+} = chords
 
 const song: Song = {
   timeSignature: {
@@ -9,22 +31,22 @@ const song: Song = {
     denominator: 4,
   },
   measures: [
-    [chords.G_OPEN_XXS, chords.G_OPEN_XXS, chords.CMAJ7_OPEN_BASS_G_S, chords.CMAJ7_OPEN_BASS_G_S],
-    [chords.G_OPEN_XXS, chords.G_OPEN_XXS, chords.G_OPEN_XXS, chords.G_OPEN_XXS],
-    [chords.E_MINOR_OPEN_S, chords.E_MINOR_OPEN_S, chords.A7_OPEN_USE_2_LEAVE_E, chords.A7_OPEN_USE_2_LEAVE_E],
-    [chords.D7_OPEN_SUS4, chords.D7_OPEN_SUS4, chords.D7_OPEN, chords.D7_OPEN],
-    [chords.C_OPEN, chords.C_OPEN, chords.D7_OPEN_BASS_C_S, chords.D7_OPEN_BASS_C_S],
-    [chords.G_OPEN_BASS_B_XS_USE_2_4, chords.G_OPEN_BASS_B_XS_USE_2_4, chords.D7_OPEN_SUS4_BASS_A, chords.G_OPEN_XXS],
-    [chords.C_OPEN, chords.G_OPEN_BASS_B_XS_USE_2_4, chords.A_MINOR7_OPEN_LEAVE_E, chords.D7_OPEN_SKIP_E],
-    [chords.G_OPEN_XXS, chords.G_OPEN_XXS, chords.G_OPEN_XXS, chords.G_OPEN_XXS,],
-    [chords.G_OPEN_XS, chords.G_OPEN_XS, chords.A7_OPEN_BASS_G_S_USE_2_1, chords.A7_OPEN_BASS_G_S_USE_2_1],
-    [chords.F_SHARP_MINOR_SKIP_A, chords.F_SHARP_MINOR_SKIP_A, chords.B7_LEAVE_E, chords.B7_LEAVE_E],
-    [chords.E_MINOR_OPEN_S, chords.E_MINOR_OPEN_S, chords.A7_OPEN_USE_2_LEAVE_E, chords.A7_OPEN_USE_2_LEAVE_E,],
-    [chords.D_OPEN, chords.D_OPEN, chords.D7_OPEN, chords.D7_OPEN],
-    [chords.G_OPEN_XS, chords.G_OPEN_XS, chords.A7_OPEN_BASS_G_S_USE_2_1, chords.A7_OPEN_BASS_G_S_USE_2_1],
-    [chords.F_SHARP_MINOR_SKIP_A, chords.F_SHARP_MINOR_SKIP_A, chords.B7_LEAVE_E, chords.B7_LEAVE_E],
-    [chords.E_MINOR_OPEN_S, chords.D_OPEN_BASS_F_SHARP_USE_T, chords.E_MINOR_BASS_G_SKIP_A_LEAVE_D, chords.A7_OPEN_USE_2_LEAVE_E],
-    [chords.D_OPEN, chords.D_OPEN, chords.D7_OPEN, chords.D7_OPEN],
+    [{ primaryChord: G_OPEN_XXS, alternativeChords: [G_OPEN_SUS2_XS]}, G_OPEN_XXS, CMAJ7_OPEN_BASS_G_S, CMAJ7_OPEN_BASS_G_S],
+    [{ primaryChord: G_OPEN_XXS, alternativeChords: [G_OPEN_SUS2_XS]}, G_OPEN_XXS, G_OPEN_XXS, G_OPEN_XXS],
+    [E_MINOR_OPEN_S, E_MINOR_OPEN_S, A7_OPEN_USE_2_LEAVE_E, A7_OPEN_USE_2_LEAVE_E],
+    [{ primaryChord: D7_OPEN_SUS4, alternativeChords: [D7_OPEN, D_OPEN_SUS4, D_OPEN] }, { primaryChord: D7_OPEN_SUS4, alternativeChords: [D7_OPEN, D_OPEN_SUS4, D_OPEN] }, D7_OPEN, D7_OPEN],
+    [C_OPEN, C_OPEN, D7_OPEN_BASS_C_S, D7_OPEN_BASS_C_S],
+    [G_OPEN_BASS_B_XS_USE_2_4, G_OPEN_BASS_B_XS_USE_2_4, D7_OPEN_SUS4_BASS_A, G_OPEN_XXS],
+    [C_OPEN, G_OPEN_BASS_B_XS_USE_2_4, A_MINOR7_OPEN_LEAVE_E, D7_OPEN_SKIP_E],
+    [G_OPEN_XXS, G_OPEN_XXS, G_OPEN_XXS, G_OPEN_XXS,],
+    [G_OPEN_XS, G_OPEN_XS, A7_OPEN_BASS_G_S_USE_2_1, A7_OPEN_BASS_G_S_USE_2_1],
+    [F_SHARP_MINOR_SKIP_A, F_SHARP_MINOR_SKIP_A, B7_LEAVE_E, B7_LEAVE_E],
+    [E_MINOR_OPEN_S, E_MINOR_OPEN_S, A7_OPEN_USE_2_LEAVE_E, A7_OPEN_USE_2_LEAVE_E,],
+    [D_OPEN, D_OPEN, D7_OPEN, D7_OPEN],
+    [G_OPEN_XS, G_OPEN_XS, A7_OPEN_BASS_G_S_USE_2_1, A7_OPEN_BASS_G_S_USE_2_1],
+    [F_SHARP_MINOR_SKIP_A, F_SHARP_MINOR_SKIP_A, B7_LEAVE_E, B7_LEAVE_E],
+    [E_MINOR_OPEN_S, { primaryChord: D_OPEN_BASS_F_SHARP_USE_T, alternativeChords: [D_OPEN]}, E_MINOR_BASS_G_SKIP_A_LEAVE_D, A7_OPEN_USE_2_LEAVE_E],
+    [D_OPEN, D_OPEN, D7_OPEN, D7_OPEN],
   ]
 }
 

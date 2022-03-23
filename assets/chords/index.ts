@@ -82,7 +82,7 @@ const extendedChords = {
   CMAJ7_OPEN_BASS_G_S: baseChords.C_OPEN.extend({
     id: 'cmaj7-open-bass-g-s',
     label: 'Cmaj7/G',
-    add: [[1, 3, 3]] as FingerDataArray[],
+    add: [[1, 3, 2], [3,2,1]] as FingerDataArray[],
     lift: [2, 5],
     pattern: E_D_G_B,
   }),
@@ -94,7 +94,14 @@ const extendedChords = {
   G_OPEN_XXS: baseChords.G_OPEN.extend({
     id: 'g-open-xxs',
     lift: [2, 5, 6],
-    add: [[1, 3, 3]],
+    add: [[1, 3, 2]],
+    pattern: E_D_G_B
+  }),
+  G_OPEN_SUS2_XS: baseChords.G_OPEN.extend({
+    id: 'g-open-sus2-xs',
+    label: 'Gsus2',
+    lift: [2, 5, 6],
+    add: [[1, 3, 2], [4,2,1]],
     pattern: E_D_G_B
   }),
   G_OPEN_BASS_B_XS_USE_2_4: baseChords.G_OPEN.extend({
