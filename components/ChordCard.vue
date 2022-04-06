@@ -1,10 +1,8 @@
 <template>
-  <div>
-
   <div
     class="flex flex-col items-center bg-white border-green-500 select-none"
     :class="[
-      expanded ? 'rounded-lg px-8 py-6' : 'rounded-full min-w-[1.5rem] w-[fit-content] h-6', 
+      expanded ? 'rounded-lg px-8 py-6' : 'rounded-full min-w-[1.5rem] w-[fit-content] h-6',
       selectedChord.label !== 'N/C' && 'border',
     ]"
   >
@@ -38,8 +36,6 @@
         </div>
       </div>
     </div>
-  </div>
-  <div v-if="expanded && alternativeChords.length == 0" class="h-[6rem] flex-none w-full"></div>
   </div>
 </template>
 
