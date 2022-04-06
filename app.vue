@@ -226,12 +226,17 @@ function expandChord(beatPosition: BeatPosition) {
 
     let direction: 'previous' | 'next' = 'next'
 
-    let safetyCounter = 0
-    while (expandedChords.value.length < 7 && safetyCounter < 50) {
-      fillupCurrentChords(direction)
-      direction = direction == 'next' ? 'previous' : 'next'
-      safetyCounter++
-    }
+    fillupCurrentChords(direction)
+    direction = direction == 'next' ? 'previous' : 'next'
+
+    setTimeout(() => {
+      let safetyCounter = 0
+      while (expandedChords.value.length < 7 && safetyCounter < 50) {
+        fillupCurrentChords(direction)
+        direction = direction == 'next' ? 'previous' : 'next'
+        safetyCounter++
+      }
+    }, 0);
   }
 }
 </script>

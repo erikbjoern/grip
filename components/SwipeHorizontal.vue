@@ -12,7 +12,7 @@
       :ref="el => setChordRef(el, i)"
     >
       <button
-        class="fixed z-40 flex w-12 h-12 transition-opacity duration-200 -translate-y-1/2 bg-white rounded-full shadow bottom-8 left-4 lg:left-1/4"
+        class="fixed z-40 flex w-12 h-12 transition-opacity duration-[2s] -translate-y-1/2 bg-white rounded-full shadow bottom-8 left-4 lg:left-1/4"
         :class="isScrolledFullyLeft() && 'opacity-0 cursor-default'"
         @click.stop="!isScrolledFullyLeft() && go(-1)"
       >
@@ -39,7 +39,7 @@
         @click.stop="() => { }"
       />
       <button
-        class="fixed z-40 flex w-12 h-12 transition-opacity duration-200 -translate-y-1/2 bg-white rounded-full shadow bottom-8 right-4 lg:right-1/4"
+        class="fixed z-40 flex w-12 h-12 transition-opacity duration-[2s] -translate-y-1/2 bg-white rounded-full shadow bottom-8 right-4 lg:right-1/4"
         :class="isScrolledFullyRight() && 'opacity-0 cursor-default'"
         @click.stop="!isScrolledFullyRight() && go(1)"
       >
@@ -136,16 +136,25 @@ function go(direction: 1 | -1) {
 }
 
 const isScrolledFullyLeft = () => {
-  return horizontalScrollContainer.value?.scrollLeft == 0
+  const container = horizontalScrollContainer.value
+
+  if (!container || container.scrollWidth <= container.offsetWidth) {
+    return true
+  }
+
+  return container.scrollLeft == 0
 }
 
 const isScrolledFullyRight = () => {
-  if (!horizontalScrollContainer.value) return false
+  const container = horizontalScrollContainer.value
 
-  const containerWidth = horizontalScrollContainer.value.scrollWidth
+  if (!container || container.scrollWidth <= container.offsetWidth) {
+    return true
+  }
+
   const pageWidth = visualViewport.width
-  const maxScrollDistance = containerWidth - pageWidth
-  const distanceToRightEdge = maxScrollDistance - horizontalScrollContainer.value.scrollLeft
+  const maxScrollDistance = container.scrollWidth - pageWidth
+  const distanceToRightEdge = maxScrollDistance - container.scrollLeft
   const thresholdMargin = 100
 
   return distanceToRightEdge < thresholdMargin
