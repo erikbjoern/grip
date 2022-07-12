@@ -165,7 +165,7 @@ function fillupCurrentChords(direction: 'previous' | 'next', currentIndex?: numb
 
     if (!nextChord && nextBeat.measure * nextBeat.beat >= song.measures.length * song.timeSignature.beats) {
       break
-    } else if (!nextChord || nextChord?.id == outerMostChord?.chord?.id) {
+    } else if (!nextChord || nextChord?.id == outerMostChord?.chord?.id) { // TODO: check alternativeChords too
       nextBeat = getBeat(nextBeat, direction)
       nextChord = undefined
     }
