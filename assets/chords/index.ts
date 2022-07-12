@@ -71,7 +71,7 @@ const baseChords = {
     [5, 2, 1],
     [6, 2, 1],
   ], E_G_B_E_LEAVE_A_D),
-  NO_CHORD: new Chord('no-chord', 'N/C', [], [S, S, S, S, S, S])
+  NO_CHORD: new Chord('no-chord', 'N/C', [], [S, S, S, S, S, S]),
 }
 
 const extendedChords = {
@@ -89,30 +89,30 @@ const extendedChords = {
   G_OPEN_XS: baseChords.G_OPEN.extend({
     id: 'g-open-xs',
     lift: [2, 5],
-    pattern: E_G_B_E_LEAVE_D
+    pattern: E_G_B_E_LEAVE_D,
   }),
   G_OPEN_XXS: baseChords.G_OPEN.extend({
     id: 'g-open-xxs',
     lift: [2, 5, 6],
     add: [[1, 3, 2]],
-    pattern: E_D_G_B
+    pattern: E_D_G_B,
   }),
   G_OPEN_SUS2_XS: baseChords.G_OPEN.extend({
     id: 'g-open-sus2-xs',
     label: 'Gsus2',
     lift: [2, 5, 6],
     add: [[1, 3, 2], [4,2,1]],
-    pattern: E_D_G_B
+    pattern: E_D_G_B,
   }),
   G_OPEN_BASS_B_XS_USE_2_4: baseChords.G_OPEN.extend({
     id: 'g-open-bass-b-xs-use-2-4',
     label: 'G/B',
     lift: [1, 6],
-    pattern: A_D_G_B
+    pattern: A_D_G_B,
   }),
   D_SEMI_BARRE: baseChords.D_OPEN.extend({
     id: 'd-semi-barre',
-    add: [[5, 3, 2], [6, 2, 1]]
+    add: [[5, 3, 2], [6, 2, 1]],
   }),
   D_OPEN_SUS4: baseChords.D_OPEN.extend({
     id: 'd-open-sus4',
@@ -128,19 +128,19 @@ const extendedChords = {
   D7_OPEN: baseChords.D_OPEN.extend({
     id: 'd7-open',
     label: 'D7',
-    add: [[4, 2, 2], [5, 1, 1], [6, 2, 3]]
+    add: [[4, 2, 2], [5, 1, 1], [6, 2, 3]],
   }),
   D7_OPEN_SKIP_E: baseChords.D_OPEN.extend({
     id: 'd7-open-skip-e',
     label: 'D7',
     lift: [6],
-    add: [[4, 2, 2,], [5, 1, 1]],
+    add: [[4, 2, 2], [5, 1, 1]],
     pattern: D_G_B,
   }),
   D7_OPEN_SUS4: baseChords.D_OPEN.extend({
     id: 'd7-open-sus4',
     label: 'D7sus4',
-    add: [[4, 2, 2], [5, 1, 1], [6, 3, 5]]
+    add: [[4, 2, 2], [5, 1, 1], [6, 3, 5]],
   }),
   D7_OPEN_SUS4_BASS_A: baseChords.D_OPEN.extend({
     id: 'd7-open-sus4-bass-a',
@@ -167,7 +167,7 @@ const extendedChords = {
     label: 'A7',
     lift: [4],
     add: [[5, 2, 2]],
-    pattern: A_D_G_B_LEAVE_E
+    pattern: A_D_G_B_LEAVE_E,
   }),
   A7_OPEN_BASS_G_S_USE_2_1: baseChords.A_OPEN.extend({
     id: 'a7-open-bass-g-s-use-2-1',
@@ -185,7 +185,7 @@ const extendedChords = {
   E_MINOR_BASS_G: baseChords.E_MINOR_OPEN.extend({
     id: 'e-minor-bass-g',
     label: 'Em/G',
-    add: [[1, 3, 3]]
+    add: [[1, 3, 3]],
   }),
   E_MINOR_BASS_G_SKIP_A_LEAVE_D: baseChords.E_MINOR_OPEN.extend({
     id: 'e-minor-bass-g-skip-a-leave-d',

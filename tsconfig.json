@@ -1,4 +1,18 @@
 {
   // https://v3.nuxtjs.org/concepts/typescript
-  "extends": "./.nuxt/tsconfig.json"
+  "extends": "./.nuxt/tsconfig.json",
+  "compilerOptions": {
+    "module": "commonjs",
+    "experimentalDecorators": true,
+    "target": "es6",
+    "downlevelIteration": true,
+    "allowJs": true,
+    "outDir": "dist",
+    "jsx": "preserve",
+  },
+  "exclude": [
+    "node_modules",
+    "dist/**/*"
+  ],
+  "parser": "@babel/eslint-parser"
 }

@@ -1,15 +1,15 @@
 <template>
   <div
-    @click="$emit('close')"
+    ref="horizontalScrollContainer"
     :class="!hasDoneInitialScroll && 'opacity-0'"
     class="flex items-center h-full snap-x snap-mandatory"
-    ref="horizontalScrollContainer"
+    @click="$emit('close')"
   >
     <div
       v-for="(chordData, i) in props.expandedChords"
-      class="flex flex-none w-screen min-w-screen snap-center"
       :key="[chordData.measure, chordData.beat].join('-')"
       :ref="el => setChordRef(el, i)"
+      class="flex flex-none w-screen min-w-screen snap-center"
     >
       <button
         class="fixed z-40 flex w-12 h-12 transition-opacity duration-[2s] -translate-y-1/2 bg-white rounded-full shadow bottom-8 left-4 lg:left-1/4"
@@ -29,10 +29,10 @@
         </svg>
       </button>
       <ChordCard
-        :primaryChord="chordData.chord"
-        :alternativeChords="chordData.alternativeChords"
-        :expanded="true"
         :id="[chordData.measure, chordData.beat].join('-')"
+        :primary-chord="chordData.chord"
+        :alternative-chords="chordData.alternativeChords"
+        :expanded="true"
         name="chord-card"
         class="mx-auto shadow-md"
         :style="{ transform: `translateY(calc(-8vh - ${chordData.alternativeChords.length == 0 ? 3 : 0}rem))` }"
@@ -60,9 +60,9 @@
 </template>
 
 <script lang="ts" setup>
-import { Chord } from '@/types';
+import { Chord } from '@/types'
 import { onMounted } from 'vue'
-import ChordCard from '@/components/ChordCard.vue';
+import ChordCard from '@/components/ChordCard.vue'
 
 const props = defineProps<{ expandedChords: { chord: Chord, alternativeChords: Chord[], measure: number, beat: number }[], initialChordId: string }>()
 const emit = defineEmits<{

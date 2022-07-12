@@ -1,4 +1,4 @@
-import { StringNum, FingerDataArray, Grip, StringStatus } from "@/types";
+import { StringNum, FingerDataArray, Grip, StringStatus } from '@/types'
 
 type ChordExtensionData = {
   id: string,
@@ -54,8 +54,8 @@ export default class Chord {
       [string]: {
         fret: fingerPosition[1],
         finger: fingerPosition[2],
-        status: this.stringProperties[i]
-      }
+        status: this.stringProperties[i],
+      },
     }
   }
 

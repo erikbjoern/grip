@@ -1,5 +1,5 @@
-import chords from "@/assets/chords";
-import { Song } from "@/types";
+import chords from '@/assets/chords'
+import { Song } from '@/types'
 
 const { 
   A_MINOR7_OPEN_LEAVE_E,
@@ -22,7 +22,7 @@ const {
   G_OPEN_BASS_B_XS_USE_2_4,
   G_OPEN_XS,
   G_OPEN_XXS,
-  G_OPEN_SUS2_XS
+  G_OPEN_SUS2_XS,
 } = chords
 
 const song: Song = {
@@ -38,16 +38,16 @@ const song: Song = {
     [C_OPEN, C_OPEN, D7_OPEN_BASS_C_S, D7_OPEN_BASS_C_S],
     [G_OPEN_BASS_B_XS_USE_2_4, G_OPEN_BASS_B_XS_USE_2_4, D7_OPEN_SUS4_BASS_A, G_OPEN_XXS],
     [C_OPEN, G_OPEN_BASS_B_XS_USE_2_4, A_MINOR7_OPEN_LEAVE_E, D7_OPEN_SKIP_E],
-    [G_OPEN_XXS, G_OPEN_XXS, G_OPEN_XXS, G_OPEN_XXS,],
+    [G_OPEN_XXS, G_OPEN_XXS, G_OPEN_XXS, G_OPEN_XXS],
     [G_OPEN_XS, G_OPEN_XS, A7_OPEN_BASS_G_S_USE_2_1, A7_OPEN_BASS_G_S_USE_2_1],
     [F_SHARP_MINOR_SKIP_A, F_SHARP_MINOR_SKIP_A, B7_LEAVE_E, B7_LEAVE_E],
-    [E_MINOR_OPEN_S, E_MINOR_OPEN_S, A7_OPEN_USE_2_LEAVE_E, A7_OPEN_USE_2_LEAVE_E,],
+    [E_MINOR_OPEN_S, E_MINOR_OPEN_S, A7_OPEN_USE_2_LEAVE_E, A7_OPEN_USE_2_LEAVE_E],
     [D_OPEN, D_OPEN, D7_OPEN, D7_OPEN],
     [G_OPEN_XS, G_OPEN_XS, A7_OPEN_BASS_G_S_USE_2_1, A7_OPEN_BASS_G_S_USE_2_1],
     [F_SHARP_MINOR_SKIP_A, F_SHARP_MINOR_SKIP_A, B7_LEAVE_E, B7_LEAVE_E],
     [E_MINOR_OPEN_S, { primaryChord: D_OPEN_BASS_F_SHARP_USE_T, alternativeChords: [D_OPEN]}, E_MINOR_BASS_G_SKIP_A_LEAVE_D, A7_OPEN_USE_2_LEAVE_E],
     [D_OPEN, D_OPEN, D7_OPEN, D7_OPEN],
-  ]
+  ],
 }
 
 export default song

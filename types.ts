@@ -2,7 +2,7 @@ import ChordClass from '~~/models/chord'
 
 export type FretNum = number
 export type StringNum = 1 | 2 | 3 | 4 | 5 | 6
-export type FingerNum = 'T' | 1 | 2 | 3 | 4
+export type FingerNum = 'T' | '1' | '2' | '3' | '4'
 export type FingerDataArray = (StringNum | FretNum | FingerNum)[]
 export type FingerData = {
   fret: FretNum,
@@ -18,7 +18,7 @@ export type Chord = {
 }
 
 export type BarreElementData = {
-  finger: number,
+  finger: FingerNum,
   fret: number,
   leftMostString: number,
   width: string,
